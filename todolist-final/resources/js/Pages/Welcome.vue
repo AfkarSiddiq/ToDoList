@@ -23,7 +23,7 @@
                 <label
                     v-for="(item, index) in todoItems"
                     :key="item.id"
-                    class="bg-gray-100 m-2 p-2 rounded-md flex items-center justify-between cursor-pointer"
+                    class="bg-gray-100 m-2 p-2 rounded-md flex items-center justify-between"
                 >
                     <div class="text-2xl font-bold">
                         {{ index + 1 }}. {{ item.title }}
@@ -35,7 +35,7 @@
                                 type="checkbox"
                                 v-model="item.completed"
                                 @change="toggleComplete(item)"
-                                class="hidden peer my-2"
+                                class="hidden peer my-2 cursor-pointer"
                             />
                             <div
                                 class="mx-2 w-6 h-6 border-2 border-blue-500 rounded-full flex items-center justify-center peer-checked:bg-blue-500"
@@ -48,7 +48,7 @@
                         <div>
                             <button
                                 @click="deleteItem(item)"
-                                class="bg-red-500 text-white p-2 rounded-md mt-2"
+                                class="bg-red-500 text-white p-2 rounded-md"
                             >
                                 Hapus
                             </button>
@@ -58,8 +58,14 @@
             </div>
 
             <!-- Done Item -->
-            <div v-if="doneItems.length > 0" class="m-2 row">
-                <div>Done Item</div>
+            <div class="m-2 flex justify-between items-center">
+                <button
+                @click="showDone = !showDone"
+                class="">
+                    {{ showDone ? 'Hide done items ' : 'Show done items' }}
+                </button>
+            </div>
+            <div v-if="showDone && doneItems.length > 0" class="m-2 row">
                 <div>
                     <label
                         v-for="(item, index) in doneItems"
@@ -82,7 +88,7 @@
                                     class="mx-2 w-6 h-6 border-2 border-blue-500 rounded-full flex items-center justify-center peer-checked:bg-blue-500"
                                 >
                                     <div
-                                        class=" w-3 h-3 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition"
+                                        class="w-3 h-3 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition"
                                     ></div>
                                 </div>
                             </div>
@@ -141,6 +147,7 @@ export default {
             items: [], // Daftar todo
             showModal: false, // Status modal (true = tampil, false = sembunyi)
             newTodo: "", // Input untuk todo baru
+            showDone: false, // Status done (true = tampil, false = sembunyi)
         };
     },
     computed: {
@@ -201,6 +208,7 @@ export default {
                 console.error("Gagal menghapus todo:", error);
             }
         },
+
     },
     mounted() {
         this.fetchItems();
