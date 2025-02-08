@@ -73,4 +73,12 @@ class TodolistController extends Controller
     {
         Todolist::where('id', $id)->delete();
     }
+
+    public function ubahTodo(Request $request, $id) {
+        $todo = Todolist::findOrFail($id);
+        $todo->title = $request->title;
+        $todo->save();
+    
+        return response()->json(['message' => 'Todo updated successfully', 'todo' => $todo]);
+    }
 }

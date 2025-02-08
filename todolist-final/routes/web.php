@@ -29,4 +29,5 @@ Route::get('/index', [TodolistController::class, 'index'])->name('todolist.index
 Route::post('/store', [TodolistController::class, 'store'])->name('todolist.create');
 Route::put('/edit/{id}', [TodolistController::class, 'update']);
 Route::delete('/delete/{id}', [TodolistController::class, 'destroy'])->name('todolist.destroy');
+Route::put('/update/{id}', [TodolistController::class, 'ubahTodo'])->name('todolist.ubah');
 require __DIR__.'/auth.php';
